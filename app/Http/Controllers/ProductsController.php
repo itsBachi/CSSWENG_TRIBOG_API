@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Http\Resources\ProductsListResource;
+use App\Services\ProductService;
+use Illuminate\Support\Facades\Auth;
+use MikeMcLin\WpPassword\Contracts\WpPassword;
+
+class ProductsController extends Controller
+{
+  protected $productService;
+
+  public function __construct(ProductService $productService)
+  {
+    $this->productService = $productService;
+  }
+
+  // collection
+  public function getAllPaginated(Request $request)
+  {
+    return ProductsListResource::collection(
+      $this->productService->paginatedSearch(
+        ['keyword' => $request->get('keyword')],
+        $request->get('page', 1)
+      )
+    );
+  }
+
+  // update
+  public function update(Request $request, $id)
+  {
+    $this->productService->updateById(
+      $id,
+      $request->only(
+        'quantity',
+        'quantity_sold'
+      )
+    );
+
+    return response()->json([
+      'success' => true,
+      'user' => $this->productService->findById($id)
+    ]);
+  }
+
+  // delete
+  public function delete($id)
+  {
+    $this->productService->deleteById($id);
+
+    return response()->json([
+      'success' => true
+    ]);
+  }
+}
