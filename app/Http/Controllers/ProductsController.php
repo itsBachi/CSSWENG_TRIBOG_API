@@ -29,6 +29,25 @@ class ProductsController extends Controller
     );
   }
 
+  // create
+  public function create(Request $request)
+  {
+    $data = $this->productService->create(
+      $request->only([
+        'product_name',
+        'product_line',
+        'quantity',
+        'cost',
+        'quantity_sold'
+      ])
+    );
+
+    return response()->json([
+      'success' => true,
+      'data' => $data
+    ]);
+  }
+
   // update
   public function update(Request $request, $id)
   {
@@ -36,6 +55,7 @@ class ProductsController extends Controller
       $id,
       $request->only(
         'quantity',
+        'cost',
         'quantity_sold'
       )
     );
