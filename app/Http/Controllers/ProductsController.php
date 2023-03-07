@@ -6,8 +6,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductsListResource;
 use App\Services\ProductService;
-use Illuminate\Support\Facades\Auth;
-use MikeMcLin\WpPassword\Contracts\WpPassword;
 
 class ProductsController extends Controller
 {
