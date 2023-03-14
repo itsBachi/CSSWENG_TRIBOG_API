@@ -18,9 +18,9 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('/deliveries-collection', [DeliveriesController::class, 'getAllPaginated']);
     Route::get('/deliveries-update/{id}', [DeliveriesController::class, 'update']);
-    Route::get('/deliveries-delete{id}', [DeliveriesController::class, 'delete']);
+    Route::get('/deliveries-delete/{id}', [DeliveriesController::class, 'delete']);
 
     Route::get('/transactions-collection', [TransactionsController::class, 'getAllPaginated']);
     Route::get('/transactions-update/{id}', [TransactionsController::class, 'update']);
-    Route::get('/transactions-delete{id}', [TransactionsController::class, 'delete']);
+    Route::get('/transactions-delete/{id}', [TransactionsController::class, 'delete']);
 });
