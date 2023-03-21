@@ -14,6 +14,8 @@ class TransactionsListResource extends JsonResource{
             'quantity' => $this->quantity,
             'cost' => $this->cost,
             'total_cost' => $this->total_cost,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
