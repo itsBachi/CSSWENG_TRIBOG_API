@@ -15,6 +15,8 @@ class DeliveriesListResource extends JsonResource
             'expected_quantity' => $this->expected_quantity,
             'status' => $this->status,
             'current_quantity' => $this->current_quantity,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

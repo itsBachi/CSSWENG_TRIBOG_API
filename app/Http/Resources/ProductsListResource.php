@@ -21,6 +21,8 @@ class ProductsListResource extends JsonResource
             'quantity' => $this->quantity,
             'cost' => $this->cost,
             'quantity_sold' => $this->quantity_sold,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
