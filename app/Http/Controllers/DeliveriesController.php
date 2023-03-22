@@ -34,7 +34,8 @@ class DeliveriesController extends Controller
             $id,
             $request->only(
                 'status',
-                'current_quantity'
+                'current_quantity',
+                'updated_at'
             )
         );
 

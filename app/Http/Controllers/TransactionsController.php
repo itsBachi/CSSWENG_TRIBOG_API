@@ -35,7 +35,8 @@ class TransactionsController extends Controller
             $request->only(
                 'quantity',
                 'cost',
-                'total_cost'
+                'total_cost',
+                'updated_at'
             )
         );
 
