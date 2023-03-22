@@ -18,9 +18,11 @@ class DeliveryRepository extends EloquentRepository
 
         if ($attribute == 'keyword') {
             return $query->where(function($keywordSubquery) use ($value) {
-                $keyword = "$$value$";
+                $keyword = "%$value%";
                 $keywordSubquery
-                    ->where('product_name', 'like', $keyword)
+                    ->whereHas("product",function($q)use($keyword){
+                        $q->where("product_name","like",$keyword);
+                    })
                     ->orWhere('id', 'like', $keyword);
             });
         } else {

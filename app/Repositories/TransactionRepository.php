@@ -18,9 +18,12 @@ class TransactionRepository extends EloquentRepository
 
         if ($attribute == 'keyword') {
             return $query->where(function($keywordSubquery) use ($value) {
-                $keyword = "$$value$";
+                $keyword = "%$value%";
                 $keywordSubquery
-                    ->where('id', 'like', $keyword);
+                    ->whereHas("product",function($q)use($keyword){
+                        $q->where("product_name","like",$keyword);
+                    })
+                    ->orWhere('id', 'like', $keyword);
             });
         } else {
             return parent::getBaseQueryForSearch($attribute, $value, $operation, $query);

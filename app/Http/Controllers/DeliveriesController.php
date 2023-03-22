@@ -27,6 +27,25 @@ class DeliveriesController extends Controller
         );
     }
 
+    // create
+    public function create(Request $request)
+    {
+        $data = $this->deliveryService->create(
+            $request->only([
+                'product_id',
+                'expected_quantity',
+                'status',
+                'current_quantity',
+            ])
+        );
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
+
     // update
     public function update(Request $request, $id)
     {

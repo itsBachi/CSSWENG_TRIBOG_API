@@ -15,14 +15,12 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('product_id')->constrained('products')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->string('product_name');
+            $table->unsignedInteger('product_id');
             $table->integer('expected_quantity');
             $table->string('status');
             $table->integer('current_quantity')->nullable();
             $table->timestamps();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
