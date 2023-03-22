@@ -54,7 +54,8 @@ class ProductsController extends Controller
       $request->only(
         'quantity',
         'cost',
-        'quantity_sold'
+        'quantity_sold',
+        'updated_at'
       )
     );
 
