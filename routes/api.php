@@ -17,10 +17,12 @@ Route::group(['prefix' => 'v1'], function () {
     Route::delete('/products-delete/{id}', [ProductsController::class, 'delete']);
 
     Route::get('/deliveries-collection', [DeliveriesController::class, 'getAllPaginated']);
+    Route::post('/deliveries-create', [DeliveriesController::class, 'create']);
     Route::put('/deliveries-update/{id}', [DeliveriesController::class, 'update']);
     Route::delete('/deliveries-delete/{id}', [DeliveriesController::class, 'delete']);
 
     Route::get('/transactions-collection', [TransactionsController::class, 'getAllPaginated']);
+    Route::post('/transactions-create', [TransactionsController::class, 'create']);
     Route::put('/transactions-update/{id}', [TransactionsController::class, 'update']);
     Route::delete('/transactions-delete/{id}', [TransactionsController::class, 'delete']);
 });

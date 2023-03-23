@@ -10,9 +10,9 @@ class TransactionsListResource extends JsonResource{
         return [
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'product_name' => $this->product_name,
+            'product_name' => $this->product->product_name,
             'quantity' => $this->quantity,
-            'cost' => $this->cost,
+            'cost' => $this->product->cost,
             'total_cost' => $this->total_cost,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

@@ -15,14 +15,11 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('product_id')->constrained('products')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->string('product_name');
+            $table->unsignedInteger('product_id');
             $table->integer('quantity');
-            $table->double('cost', 8, 2);
             $table->double('total_cost', 8, 2);
             $table->timestamps();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

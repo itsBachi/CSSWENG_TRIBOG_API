@@ -27,6 +27,23 @@ class TransactionsController extends Controller
         );
     }
 
+    // create
+    public function create(Request $request)
+    {
+        $data = $this->transactionService->create(
+            $request->only([
+                'product_id',
+                'quantity',
+                'total_cost',
+            ])
+        );
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
     // update
     public function update(Request $request, $id)
     {
@@ -34,7 +51,6 @@ class TransactionsController extends Controller
             $id,
             $request->only(
                 'quantity',
-                'cost',
                 'total_cost',
                 'updated_at'
             )
