@@ -10,6 +10,7 @@ use App\Services\DeliveryService;
 class DeliveriesController extends Controller
 {
     protected $deliveryService;
+    protected $productService;
 
     public function __construct(DeliveryService $deliveryService)
     {
@@ -38,6 +39,13 @@ class DeliveriesController extends Controller
                 'current_quantity',
             ])
         );
+        
+        if ($data->status == "Complete")
+        {
+            $product = $data->product;
+            $product->quantity += $data->expected_quantity;
+            $product->save();
+        }
 
         return response()->json([
             'success' => true,
@@ -49,9 +57,24 @@ class DeliveriesController extends Controller
     // update
     public function update(Request $request, $id)
     {
+        $data = $this->deliveryService->findByID($id);
+        $old_status = $data->status;
+        $product = $data->product;
+        if($request->status == "Complete" && $old_status != "Complete")
+        {
+            $product->quantity += $data->expected_quantity;
+            $product->save();
+        }
+        else if($request->status != "Complete" && $old_status == "Complete")
+        {
+            $product->quantity -= $data->expected_quantity;
+            $product->save();
+        }
+
         $this->deliveryService->updateById(
             $id,
             $request->only(
+                'expected_quantity',
                 'status',
                 'current_quantity',
                 'updated_at'
