@@ -10,7 +10,6 @@ use App\Services\DeliveryService;
 class DeliveriesController extends Controller
 {
     protected $deliveryService;
-    protected $productService;
 
     public function __construct(DeliveryService $deliveryService)
     {
