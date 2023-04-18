@@ -52,6 +52,7 @@ class ProductsController extends Controller
     $this->productService->updateById(
       $id,
       $request->only(
+        'product_name',
         'quantity',
         'cost',
         'quantity_sold',
