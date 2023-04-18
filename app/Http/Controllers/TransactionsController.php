@@ -38,6 +38,11 @@ class TransactionsController extends Controller
             ])
         );
 
+        $product = $data->product;
+        $product->quantity -= $data->quantity;
+        $product->quantity_sold += $data->quantity;
+        $product->save();
+
         return response()->json([
             'success' => true,
             'data' => $data
@@ -47,6 +52,29 @@ class TransactionsController extends Controller
     // update
     public function update(Request $request, $id)
     {
+        $data = $this->transactionService->findByID($id);
+        $old_qty = $data->quantity;
+        $product = $data->product;
+
+        if($request->quantity != $old_qty)
+        {
+            //transaction qty became higher
+            if($request->quantity > $old_qty)
+            {
+                $difference = $request->quantity - $old_qty;
+                $product->quantity -= $difference;
+                $product->quantity_sold += $difference;
+            }
+            //transaction qty became lower
+            else
+            {
+                $difference = $old_qty - $request->quantity;
+                $product->quantity += $difference;
+                $product->quantity_sold -= $difference;
+            }
+            $product->save();
+        }
+
         $this->transactionService->updateById(
             $id,
             $request->only(
